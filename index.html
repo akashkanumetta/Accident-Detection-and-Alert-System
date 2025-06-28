@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Detection Dashboard</title>
+
+    <!-- ✅ Correct CSS Path -->
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Real-Time Accident Detection</h1>
+    </header>
+
+    <main>
+        <!-- ✅ Removed Video Feed Section -->
+
+        <!-- ✅ Accident Information Section -->
+        <section id="accident-info">
+            <h2>Accident Details</h2>
+
+            <div id="alert-box">
+                <p>No accidents detected yet.</p>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Snapshot</th>
+                    </tr>
+                </thead>
+                <tbody id="accident-table"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- ✅ JavaScript for Fetching Accident Data -->
+    <script>
+        async function fetchAccidentData() {
+            try {
+                let response = await fetch("/get-accident-data");
+                let data = await response.json();
+                let alertBox = document.getElementById("alert-box");
+                let accidentTable = document.getElementById("accident-table");
+
+                // ✅ Clear previous accident records
+                accidentTable.innerHTML = "";
+
+                if (data.message === "No accident detected yet") {
+                    alertBox.innerHTML = `<p>No accidents detected yet.</p>`;
+                    alertBox.style.color = "black";
+                    return;
+                }
+
+                let timestamp = new Date(data.timestamp);
+                let date = timestamp.toISOString().split('T')[0]; 
+                let time = timestamp.toLocaleTimeString();
+
+                let row = `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${time}</td>
+                        <td>${data.location}</td>
+                        <td><img src="${data.snapshot}" alt="Accident Snapshot" width="100"></td>
+                    </tr>
+                `;
+                accidentTable.innerHTML = row;
+
+                alertBox.innerHTML = `<p style="color: red;">⚠️ Accident detected at ${time}!</p>`;
+            } catch (error) {
+                console.error("Error fetching accident data:", error);
+            }
+        }
+
+        setInterval(fetchAccidentData, 5000); // ✅ Fetch accident data every 5 seconds
+    </script>
+
+    <!-- ✅ Correct JavaScript Path -->
+    <script defer src="/static/script.js"></script> 
+
+</body>
+</html>

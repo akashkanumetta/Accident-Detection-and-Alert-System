@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #222;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+#video-feed img {
+    width: 480px;
+    height: 320px;
+    border: 2px solid #000;
+}
+
+#accident-info {
+    width: 50%;
+}
+
+#alert-box {
+    background-color: #ffcccc;
+    color: red;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #555;
+    color: white;
+}
+
